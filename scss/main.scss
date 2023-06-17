@@ -1,0 +1,243 @@
+@import "_config";
+
+@mixin flexCenter($direction){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: $direction;
+}
+
+@mixin maxWidth($width){
+    width: 100%;
+    max-width: $width;
+}
+
+@mixin fontProp($c,$fs,$fw,$lh,$ls){
+    color: $c;
+    font-size: $fs;
+    font-weight: $fw;
+    line-height: $lh;
+    letter-spacing: $ls;
+}
+
+@mixin desktop{
+    @media (min-width: 800px){
+        @content;
+    }
+}
+
+body{
+    background-color: map-get($clr, neutral-100 );
+    @include flexCenter(row);
+}
+
+.felx-group{
+    @include flexCenter(row);
+    justify-content: space-between;
+    gap: 1.6rem;
+    z-index: 5;
+}
+
+.main{
+    @include flexCenter(column);
+    @include maxWidth(32.7rem);
+    margin: 2.4rem;
+    padding-bottom: 1rem;
+    border-radius: 1rem;
+    background-color: map-get($clr, primary );
+    position: relative;
+    box-shadow: 0 4rem 4rem -1rem hsla(210, 29%, 84%, 0.5);
+    @include desktop {
+        padding-bottom: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        @include maxWidth(73rem);
+        row-gap: 2rem;
+    }
+
+    &__picture-section{
+        width: 100%;
+        min-height: 20rem;
+        @include desktop{
+            min-width: 28.5rem;
+            grid-row: 1/span 2;
+        }
+        
+        .picture-section__picture{
+            @include maxWidth(32.7rem);
+            height: 20rem;
+            object-fit: cover;
+            object-position: 0 -1.5rem;
+            border-radius: 1rem 1rem 0 0;
+            @include desktop{
+                border-radius: 1rem 0 0 1rem;
+                @include maxWidth(28.5rem);
+                min-height: 28rem;
+                object-position: 0;
+            }
+        }
+    }
+
+    &__article-section{
+        padding: 3.6rem 3.2rem 2rem 3.2rem;
+        @include desktop{
+            padding: 3.2rem 4rem 0rem 4rem;
+        }
+
+        .article-section__article{
+
+            .article__title{
+                margin-bottom: 1.2rem;
+                @include fontProp(map-get($clr, neutral-800), map-get($fs, fs-m), $fw-bold, 2.4rem, 0.02rem);
+                @include desktop{
+                    @include fontProp(map-get($clr, neutral-800), map-get($fs, fs-l), $fw-bold, 2.8rem, 0.025rem);
+                }
+            }
+
+            .article__content{
+                @include fontProp(map-get($clr, neutral-500), map-get($fs, fs-s), $fw-regular, 2rem, 0.012rem);
+            }
+        }
+    }
+
+    .footer{
+        @include flexCenter(row);
+        width: 100%;
+        height: 6.4rem;
+        padding: 0rem 3.2rem;
+        border-radius: 0 0 1rem 1rem;
+        justify-content: space-between;
+        background-color: map-get($clr, primary );
+        
+        @include desktop{
+            padding: 0rem 4rem 3.2rem 4rem;
+        }
+
+        &__author-section{
+            display: grid;
+            column-gap: 1.6rem;
+            grid-template-columns: auto 1fr;
+            @include desktop{
+                display: grid !important;
+            }
+
+            .author-section__avatar{
+                grid-row: 1/span 2;
+                width: 4rem;
+                border-radius: 50%;
+            }
+
+            .author-section__name{
+                @include fontProp(map-get($clr, neutral-800), map-get($fs, fs-s), $fw-bold, 2rem, 0.012rem);
+                
+            }
+
+            .author-section__date{
+                @include fontProp(map-get($clr, neutral-400), map-get($fs, fs-s), $fw-regular, 2rem, 0.012rem);
+                
+            }
+        }
+
+        &__share-btn{
+            width: 3.2rem;
+            height: 3.2rem;
+            border-radius: 50%;
+            background-color: map-get($clr, neutral-100 );
+            @include flexCenter(row);
+
+            .share-btn__img{
+                fill: map-get($clr, neutral-500 );
+            }
+        }
+
+        .footer__share-btn:hover{
+            background-color: map-get($clr, neutral-500 );
+        }
+        .footer__share-btn:hover > *{
+            fill: map-get($clr, primary );
+        }
+    }
+
+    .share-options{ 
+        @include flexCenter(row);
+        justify-content: space-between;
+        background-color: map-get($clr, neutral-800 );
+        width: 100%;
+        padding: 1.6rem 3.2rem;
+        border-radius: 0 0 1rem 1rem;
+        position: absolute;
+        bottom: 0;
+        @include desktop{
+            padding: 1.8rem 3.6rem;
+            width: auto;
+            gap: 2.1rem;
+            border-radius: 1rem;
+            bottom: 9.4rem;
+            right: -7rem;
+            box-shadow: 0 1rem 1rem hsla(210, 29%, 84%, 0.5);
+
+            @media (max-width: 880px) {
+                @include flexCenter(column);
+                bottom: 9.4rem;
+                right: -2.5rem;
+              }
+            
+        }
+
+        &__title{
+            text-transform: uppercase;
+            @include fontProp(map-get($clr, neutral-400), map-get($fs, fs-s), $fw-regular, 2rem, 0.5rem);
+        }
+
+        &__btn{
+            width: 3.2rem;
+            height: 3.2rem;
+            margin-left: 5.6rem;
+            border-radius: 50%;
+            background-color: map-get($clr, neutral-500 );
+            @include flexCenter(row);
+            @include desktop{
+                display: none;
+            }
+
+            .share-btn__img{
+                fill: map-get($clr, primary );
+            }
+        }
+
+        &__btn:hover{
+            background-color: map-get($clr, neutral-100 );
+        }
+
+        &__btn:hover > *{
+            fill: map-get($clr, neutral-500 );
+        }
+
+        .triangle{
+            display: none;
+            @include desktop{
+                // display: block;
+                // width: 0;
+                // height: 0;
+                // border-top: 1.2rem solid map-get($clr, neutral-800 );
+                // border-left: 1.2rem solid transparent;
+                // border-right:1.2rem solid transparent;
+                // position: absolute;
+                // bottom: -1.2rem;
+                // left: 50%;
+                // transform: translateX(-50%);
+                // box-shadow: inset 1px 1px 1px 1px Green;
+
+                display: block;
+                width: 2.4rem;
+                height: 2.4rem;
+                transform: rotate(45deg) translateX(-40%) translateY(35%);
+                position: absolute;
+                bottom: -1.2rem;
+                left: 50%;
+                background-color: map-get($clr , neutral-800 );
+                box-shadow: 1rem 1rem 1rem hsla(210, 29%, 84%, 0.5);
+            }
+        }
+    }  
+}
